@@ -1,0 +1,27 @@
+{
+  "name": "@progressivewebcomponents/pwa-install",
+  "description": "Progressive web apps install (add to home screen) vanilla web component",
+  "author": "Alexey Rodionov <fluorescent.hallucinogen@gmail.com>",
+  "version": "0.1.0",
+  "keywords": [
+    "web-component",
+    "custom-element",
+    "es-module",
+    "esm",
+    "html-imports",
+    "vanilla",
+    "web",
+    "api",
+    "install",
+    "a2hs",
+    "webapk",
+    "pwa",
+    "progressive-web-apps"
+  ],
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ProgressiveWebComponents/pwa-install.git"
+  },
+  "main": "pwa-install.js"
+}
