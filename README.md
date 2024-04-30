@@ -1,177 +1,664 @@
-[![Published on NPM](https://img.shields.io/npm/v/@progressivewebcomponents/pwa-install.svg)](https://www.npmjs.com/package/@progressivewebcomponents/pwa-install)
+[![Published on NPM](https://img.shields.io/npm/v/@progressivewebcomponents/pwa-install.svg)](https://npmjs.com/package/@progressivewebcomponents/pwa-install)
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://webcomponents.org/element/@progressivewebcomponents/pwa-install)
 
-## \<pwa-install\>
+A tiny zero-dependency non-visual native browser web component (custom HTML element and class) that helps implement [custom patterns for promoting progressive web apps (PWA) installation](https://web.dev/articles/promote-install).
 
-Progressive web apps install (add to home screen) vanilla web component.
+It's compatible with [Google Polymer](https://polymer-library.polymer-project.org) library data binding.
 
-## Install
+# API
 
-```bash
+## Methods
+
+| Method                    | Type                   | Modifiers |
+|---------------------------|------------------------|-----------|
+| `prompt`                  | `(): ?Promise<Object>` | async     |
+| `getInstalledRelatedApps` | `(): ?Promise<Array>`  | async     |
+
+## Properties
+
+| Property                             | Type       | Modifiers |
+|--------------------------------------|------------|-----------|
+| `isInstallSupported`                 | `?boolean` | readonly  |
+| `isInstallAvailable`                 | `?boolean` | readonly  |
+| `platforms`                          | `?Array`   | readonly  |
+| `choiceResult`                       | `?Object`  | readonly  |
+| `isGetInstalledRelatedAppsSupported` | `?boolean` | readonly  |
+| `relatedApps`                        | `?Array`   | readonly  |
+
+## Attributes
+
+| Attribute                                 | Type       | Modifiers |
+|-------------------------------------------|------------|-----------|
+| `is-install-supported`                    | `?boolean` | readonly  |
+| `is-install-available`                    | `?boolean` | readonly  |
+| `is-get-installed-related-apps-supported` | `?boolean` | readonly  |
+
+## Events
+
+| Event                                             | Bubbles | Composed |
+|---------------------------------------------------|---------|----------|
+| `pwa-install-available`                           | true    | true     |
+| `pwa-install-installing`                          | true    | true     |
+| `pwa-install-installed`                           | true    | true     |
+| `pwa-install-error`                               | true    | true     |
+| `is-install-supported-changed`                    | false   | false    |
+| `is-install-available-changed`                    | false   | false    |
+| `platforms-changed`                               | false   | false    |
+| `choice-result-changed`                           | false   | false    |
+| `is-get-installed-related-apps-supported-changed` | false   | false    |
+| `related-apps-changed`                            | false   | false    |
+
+# Install
+
+```sh
 npm i @progressivewebcomponents/pwa-install
 ```
 
-Install web components polyfills (needed for older browsers):
+# Import
 
-```bash
-npm i -D @webcomponents/webcomponentsjs
-```
+## Local
 
-Alternatively, you can use [unpkg](https://unpkg.com).
-
-## Import
-
-Load web components polyfill (if needed):
-
-```html
-<script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-```
-
-### In JS files
+### JS
 
 ```js
-import '../node_modules/@progressivewebcomponents/pwa-install/pwa-install.js';
+import './node_modules/@progressivewebcomponents/pwa-install/pwa-install.js';
 ```
 
-### In HTML files
+<details>
+  <summary>Advanced usage</summary>
 
-#### ES Modules (recommended)
+  See the [Customize](#customize) section for how to use the code below:
+
+  ```js
+  import { PWAInstall } from './node_modules/@progressivewebcomponents/pwa-install/pwa-install-class.js';
+  ```
+</details>
+
+### HTML
 
 ```html
-<script type="module" src="../node_modules/@progressivewebcomponents/pwa-install/pwa-install.js"></script>
+<script
+  type="module"
+  src="./node_modules/@progressivewebcomponents/pwa-install/pwa-install.js">
+</script>
 ```
-
-#### HTML Imports (deprecated)
 
 ```html
-<link rel="import" href="../node_modules/@progressivewebcomponents/pwa-install/pwa-install.html">
+<script type="module">
+  import './node_modules/@progressivewebcomponents/pwa-install/pwa-install.js';
+</script>
 ```
 
-## getInstalledRelatedApps
+<details>
+  <summary>Advanced usage</summary>
 
-https://developers.chrome.com/origintrials/#/view_trial/855683929200394241
+  See the [Customize](#customize) section for how to use the code below:
 
-chrome://flags/#enable-experimental-web-platform-features
+  ```html
+  <script type="module">
+    import { PWAInstall } from './node_modules/@progressivewebcomponents/pwa-install/pwa-install-class.js';
+  </script>
+  ```
+</details>
 
-## Use
-
-### Polymer
+### Import maps
 
 ```html
-<pwa-install
-  id="a2hs"
-
-  available="{{installAvailable}}"
-  platforms="{{platforms}}"
-  choice-result="{{choiceResult}}"
-  supported="{{relatedAppsSupported}}"
-  related-apps="{{relatedApps}}"
-
-  on-pwa-install-available="handlePWAInstallAvailable"
-  on-pwa-install-install="handlePWAInstall"
-  on-pwa-install-installed="handlePWAInstalled"
-  on-pwa-install-error="handlePWAInstallError"
-
-  on-available-changed="handleAvailableChanged"
-  on-platforms-changed="handlePlatformsChanged"
-  on-choice-result-changed="handleChoiceResultChanged"
-  on-supported-changed="handleSupportedChanged"
-  on-related-apps-changed="handleRelatedAppsChanged">
-</pwa-install>
+<script type="importmap">
+  {
+    "imports": {
+      "pwa-install": "./node_modules/@progressivewebcomponents/pwa-install/pwa-install.js",
+      "pwa-install/": "./node_modules/@progressivewebcomponents/pwa-install/"
+    }
+  }
+</script>
 ```
+
+#### JS
 
 ```js
-const pwaInstall = this.$.a2hs;
-
-pwaInstall.install();
-
-pwaInstall.getInstalledRelatedApps();
+import 'pwa-install';
 ```
 
-### LitHTML/LitElement
+<details>
+  <summary>Advanced usage</summary>
+
+  See the [Customize](#customize) section for how to use the code below:
+
+  ```js
+  import { PWAInstall } from 'pwa-install/pwa-install-class.js';
+  ```
+</details>
+
+#### HTML
 
 ```html
-<pwa-install
-  id="a2hs"
-
-  @pwa-install-available="${this.handlePWAInstallAvailable}"
-  @pwa-install-install="${this.handlePWAInstall}"
-  @pwa-install-installed="${this.handlePWAInstalled}"
-  @pwa-install-error="${this.handlePWAInstallError}"
-
-  @available-changed="${this.handleAvailableChanged}"
-  @platforms-changed="${this.handlePlatformsChanged}"
-  @choice-result-changed="${this.handleChoiceResultChanged}"
-  @supported-changed="${this.handleSupportedChanged}"
-  @related-apps-changed="${this.handleRelatedAppsChanged}">
-</pwa-install>
+<script type="module">
+  import 'pwa-install';
+</script>
 ```
+
+<details>
+  <summary>Advanced usage</summary>
+
+  See the [Customize](#customize) section for how to use the code below:
+
+  ```html
+  <script type="module">
+    import { PWAInstall } from 'pwa-install/pwa-install-class.js';
+  </script>
+  ```
+</details>
+
+### Dev Servers / Builders
+
+#### JS
 
 ```js
-const pwaInstall = this.shadowRoot.getElementById('a2hs');
-
-pwaInstall.install();
-
-pwaInstall.getInstalledRelatedApps();
+import '@progressivewebcomponents/pwa-install';
 ```
 
-### Vanilla (without any frameworks/libraries)
+<details>
+  <summary>Advanced usage</summary>
+
+  See the [Customize](#customize) section for how to use the code below:
+
+  ```js
+  import { PWAInstall } from '@progressivewebcomponents/pwa-install/pwa-install-class.js';
+  ```
+</details>
+
+#### HTML
+
+```html
+<script type="module">
+  import '@progressivewebcomponents/pwa-install';
+</script>
+```
+
+<details>
+  <summary>Advanced usage</summary>
+
+  See the [Customize](#customize) section for how to use the code below:
+
+  ```html
+  <script type="module">
+    import { PWAInstall } from '@progressivewebcomponents/pwa-install/pwa-install-class.js';
+  </script>
+  ```
+</details>
+
+## CDN
+
+### UNPKG
+
+#### JS
+
+```js
+import 'https://unpkg.com/@progressivewebcomponents/pwa-install';
+```
+
+<details>
+  <summary>Advanced usage</summary>
+
+  See the [Customize](#customize) section for how to use the code below:
+
+  ```js
+  import { PWAInstall } from 'https://unpkg.com/@progressivewebcomponents/pwa-install/pwa-install-class.js';
+  ```
+</details>
+
+#### HTML
+
+```html
+<script
+  type="module"
+  src="https://unpkg.com/@progressivewebcomponents/pwa-install">
+</script>
+```
+
+```html
+<script type="module">
+  import 'https://unpkg.com/@progressivewebcomponents/pwa-install';
+</script>
+```
+
+<details>
+  <summary>Advanced usage</summary>
+
+  See the [Customize](#customize) section for how to use the code below:
+
+  ```html
+  <script type="module">
+    import { PWAInstall } from 'https://unpkg.com/@progressivewebcomponents/pwa-install/pwa-install-class.js';
+  </script>
+  ```
+</details>
+
+### ESM CDN
+
+#### JS
+
+```js
+import 'https://esm.sh/@progressivewebcomponents/pwa-install';
+```
+
+<details>
+  <summary>Advanced usage</summary>
+
+  See the [Customize](#customize) section for how to use the code below:
+
+  ```js
+  import { PWAInstall } from 'https://esm.sh/@progressivewebcomponents/pwa-install/pwa-install-class.js';
+  ```
+</details>
+
+#### HTML
+
+```html
+<script
+  type="module"
+  src="https://esm.sh/@progressivewebcomponents/pwa-install">
+</script>
+```
+
+```html
+<script type="module">
+  import 'https://esm.sh/@progressivewebcomponents/pwa-install';
+</script>
+```
+
+<details>
+  <summary>Advanced usage</summary>
+
+  See the [Customize](#customize) section for how to use the code below:
+
+  ```html
+  <script type="module">
+    import { PWAInstall } from 'https://esm.sh/@progressivewebcomponents/pwa-install/pwa-install-class.js';
+  </script>
+  ```
+</details>
+
+### Skypack
+
+#### JS
+
+```js
+import 'https://cdn.skypack.dev/@progressivewebcomponents/pwa-install';
+```
+
+<details>
+  <summary>Advanced usage</summary>
+
+  See the [Customize](#customize) section for how to use the code below:
+
+  ```js
+  import { PWAInstall } from 'https://cdn.skypack.dev/@progressivewebcomponents/pwa-install/pwa-install-class.js';
+  ```
+</details>
+
+#### HTML
+
+```html
+<script
+  type="module"
+  src="https://cdn.skypack.dev/@progressivewebcomponents/pwa-install">
+</script>
+```
+
+```html
+<script type="module">
+  import 'https://cdn.skypack.dev/@progressivewebcomponents/pwa-install';
+</script>
+```
+
+<details>
+  <summary>Advanced usage</summary>
+
+  See the [Customize](#customize) section for how to use the code below:
+
+  ```html
+  <script type="module">
+    import { PWAInstall } from 'https://cdn.skypack.dev/@progressivewebcomponents/pwa-install/pwa-install-class.js';
+  </script>
+  ```
+</details>
+
+# Use
+
+## HTML
 
 ```html
 <pwa-install id="a2hs"></pwa-install>
 ```
 
+## JS
+
 ```js
 const pwaInstall = document.getElementById('a2hs');
-
-pwaInstall.addEventListener('pwa-install-available', handlePWAInstallAvailable);
-pwaInstall.addEventListener('pwa-install-install', handlePWAInstallInstall);
-pwaInstall.addEventListener('pwa-install-installed', handlePWAInstallInstalled);
-pwaInstall.addEventListener('pwa-install-error', handlePWAInstallError);
-
-pwaInstall.addEventListener('available-changed', handleAvailableChanged);
-pwaInstall.addEventListener('platforms-changed', handlePlatformsChanged);
-pwaInstall.addEventListener('choice-result-changed', handleChoiceResultChanged);
-pwaInstall.addEventListener('supported-changed', handleSupportedChanged);
-pwaInstall.addEventListener('related-apps-changed', handleRelatedAppsChanged);
-
-pwaInstall.install();
-
-pwaInstall.getInstalledRelatedApps();
 ```
-
-[Full live demo](https://pwa-install.web.app/vanilla/) ([source code](https://github.com/ProgressiveWebComponents/pwa-install/tree/master/demo/vanilla))
-
-## Google Analytics
 
 ```js
-handlePWAInstallAvailable() {
-  if (window.ga) {
-    ga('send', 'event', 'pwa-install', 'available', this.platforms);
-  }
+const choiseResult = await pwaInstall.prompt();
+
+const relatedApps = await pwaInstall.getInstalledRelatedApps();
+```
+
+```js
+let isInstallSupportedPropertyValue = pwaInstall.isInstallSupported;
+
+let isInstallAvailablePropertyValue = pwaInstall.isInstallAvailable;
+
+let platformsPropertyValue = pwaInstall.platforms;
+
+let choiceResultPropertyValue = pwaInstall.choiceResult;
+
+let isGetInstalledRelatedAppsSupportedPropertyValue = pwaInstall.isGetInstalledRelatedAppsSupported;
+
+let relatedAppsPropertyValue = pwaInstall.relatedApps;
+```
+
+```js
+let isInstallSupportedAttributeValue = pwaInstall.hasAttribute('is-install-supported');
+
+let isInstallAvailableAttributeValue = pwaInstall.hasAttribute('is-install-available');
+
+let isGetInstalledRelatedAppsSupportedAttributeValue = pwaInstall.hasAttribute('is-get-installed-related-apps-supported');
+```
+
+```js
+pwaInstall.addEventListener('pwa-install-available', handlePWAInstallAvailableEvent);
+
+pwaInstall.addEventListener('pwa-install-installing', handlePWAInstallInstallingEvent);
+
+pwaInstall.addEventListener('pwa-install-installed', handlePWAInstallInstalledEvent);
+
+pwaInstall.addEventListener('pwa-install-error', handlePWAInstallErrorEvent);
+```
+
+```js
+const handlePWAInstallAvailableEvent = (event) => {
+  // Use event.detail.value and/or run any code
 }
 
-handlePWAInstallInstall() {
-  if (window.ga) {
-    ga('send', 'event', 'pwa-install', this.choiceResult.outcome, this.choiceResult.platform);
-  }
+const handlePWAInstallInstallingEvent = (event) => {
+  // Use event.detail.value and/or run any code
 }
 
-handlePWAInstallInstalled() {
-  if (window.ga) {
-    ga('send', 'event', 'pwa-install', 'installed', this.choiceResult.platform);
-  }
+const handlePWAInstallInstalledEvent = (event) => {
+  // Use event.detail.value and/or run any code
 }
 
-handlePWAInstallError() {
-  if (window.ga) {
-    ga('send', 'event', 'pwa-install', 'error', this.choiceResult.platform);
-  }
+const handlePWAInstallErrorEvent = (event) => {
+  // Use event.detail.message.error, event.detail.value and/or run any code
 }
 ```
 
-## Further reading
+<details>
+  <summary>Use case</summary>
 
-[Patterns for Promoting PWA Installation (mobile)](https://developers.google.com/web/fundamentals/app-install-banners/promoting-install-mobile)
+  Events can be used to collect telemetry on (promoting) PWA installation and send it to e.g. Google Analytics:
 
-[Detect if your Native app is installed from your web site](https://medium.com/dev-channel/detect-if-your-native-app-is-installed-from-your-web-site-2e690b7cb6fb)
+  ```js
+  const handlePWAInstallAvailableEvent = (event) => {
+    window.gtag?.('event', 'pwa-install', {
+      'state': 'available',
+      'platforms': event.detail.value,
+    });
+  }
+
+  const handlePWAInstallInstallingEvent = (event) => {
+    window.gtag?.('event', 'pwa-install', {
+      'state': 'installing',
+      'outcome': event.detail.value?.outcome,
+      'platform': event.detail.value?.platform,
+    });
+  }
+
+  const handlePWAInstallInstalledEvent = (event) => {
+    window.gtag?.('event', 'pwa-install', {
+      'state': 'installed',
+      'platform': event.detail.value?.platform,
+    });
+  }
+
+  const handlePWAInstallErrorEvent = (event) => {
+    window.gtag?.('event', 'pwa-install', {
+      'state': 'error',
+      'error': event.detail.message.error,
+      'platform': event.detail.value?.platform,
+    });
+  }
+  ```
+</details>
+
+```js
+pwaInstall.addEventListener('is-install-supported-changed', handleIsInstallSupportedPropertyChangedEvent);
+
+pwaInstall.addEventListener('is-install-available-changed', handleIsInstallAvailablePropertyChangedEvent);
+
+pwaInstall.addEventListener('platforms-changed', handlePlatformsPropertyChangedEvent);
+
+pwaInstall.addEventListener('choice-result-changed', handleChoiceResultPropertyChangedEvent);
+
+pwaInstall.addEventListener('is-get-installed-related-apps-supported-changed', handleIsGetInstalledRelatedAppsSupportedPropertyChangedEvent);
+
+pwaInstall.addEventListener('related-apps-changed', handleRelatedAppsPropertyChangedEvent);
+```
+
+```js
+const handleIsInstallSupportedPropertyChangedEvent = (event) => {
+  // Use event.detail.value and/or run any code
+}
+
+const handleIsInstallAvailablePropertyChangedEvent = (event) => {
+  // Use event.detail.value and/or run any code
+}
+
+const handlePlatformsPropertyChangedEvent = (event) => {
+  // Use event.detail.value and/or run any code
+}
+
+const handleChoiceResultPropertyChangedEvent = (event) => {
+  // Use event.detail.value and/or run any code
+}
+
+const handleIsGetInstalledRelatedAppsSupportedPropertyChangedEvent = (event) => {
+  // Use event.detail.value and/or run any code
+}
+
+const handleRelatedAppsPropertyChangedEvent = (event) => {
+  // Use event.detail.value and/or run any code
+}
+```
+
+<details>
+  <summary>Use case</summary>
+
+  Events can be used to update the property values:
+
+  ```js
+  const handleIsInstallSupportedPropertyChangedEvent = (event) => {
+    isInstallSupportedPropertyValue = event.detail.value;
+  }
+
+  const handleIsInstallAvailablePropertyChangedEvent = (event) => {
+    isInstallAvailablePropertyValue = event.detail.value;
+  }
+
+  const handlePlatformsPropertyChangedEvent = (event) => {
+    platformsPropertyValue = event.detail.value;
+  }
+
+  const handleChoiceResultPropertyChangedEvent = (event) => {
+    choiceResultPropertyValue = event.detail.value;
+  }
+
+  const handleIsGetInstalledRelatedAppsSupportedPropertyChangedEvent = (event) => {
+    isGetInstalledRelatedAppsSupportedPropertyValue = event.detail.value;
+  }
+
+  const handleRelatedAppsPropertyChangedEvent = (event) => {
+    relatedAppsPropertyValue = event.detail.value;
+  }
+  ```
+</details>
+
+## CSS
+
+```css
+#a2hs[is-install-supported]
+
+#a2hs[is-install-available]
+
+#a2hs[is-get-installed-related-apps-supported]
+```
+
+<details>
+  <summary>Use case</summary>
+
+  CSS attribute selectors can be used to show/hide and/or style other HTML elements e.g. the UI for promoting PWA installation:
+
+  ```html
+  <pwa-install id="a2hs"></pwa-install>
+
+  <button
+    id="install"
+    onclick="document.getElementById('a2hs').prompt()">
+      Install
+  </button>
+  ```
+
+  ```css
+  #install {
+    visibility: hidden;
+  }
+
+  :has(#a2hs[is-install-available]) #install {
+    visibility: visible;
+  }
+  ```
+</details>
+
+## Lit
+
+```html
+<pwa-install
+  id="a2hs"
+
+  @pwa-install-available="${this.handlePWAInstallAvailableEvent}"
+  @pwa-install-installing="${this.handlePWAInstallInstallingEvent}"
+  @pwa-install-installed="${this.handlePWAInstallInstalledEvent}"
+  @pwa-install-error="${this.handlePWAInstallErrorEvent}"
+
+  @is-install-supported-changed="${this.handleIsInstallSupportedPropertyChangedEvent}"
+  @is-install-available-changed="${this.handleIsInstallAvailablePropertyChangedEvent}"
+  @platforms-changed="${this.handlePlatformsPropertyChangedEvent}"
+  @choice-result-changed="${this.handleChoiceResultPropertyChangedEvent}"
+  @is-get-installed-related-apps-supported-changed="${this.handleIsGetInstalledRelatedAppsSupportedPropertyChangedEvent}"
+  @related-apps-changed="${this.handleRelatedAppsPropertyChangedEvent}">
+</pwa-install>
+```
+
+```js
+const pwaInstall = this.shadowRoot.getElementById('a2hs');
+```
+
+## Polymer
+
+```html
+<pwa-install
+  id="a2hs"
+
+  is-install-supported="{{isInstallSupportedPropertyValue}}"
+  is-install-available="{{isInstallAvailablePropertyValue}}"
+  platforms="{{platformsPropertyValue}}"
+  choice-result="{{choiceResultPropertyValue}}"
+  is-get-installed-related-apps-supported="{{isGetInstalledRelatedAppsSupportedPropertyValue}}"
+  related-apps="{{relatedAppsPropertyValue}}"
+
+  on-pwa-install-available="handlePWAInstallAvailableEvent"
+  on-pwa-install-installing="handlePWAInstallInstallingEvent"
+  on-pwa-install-installed="handlePWAInstallInstalledEvent"
+  on-pwa-install-error="handlePWAInstallErrorEvent"
+
+  on-is-install-supported-changed="handleIsInstallSupportedPropertyChangedEvent"
+  on-is-install-available-changed="handleIsInstallAvailablePropertyChangedEvent"
+  on-platforms-changed="handlePlatformsPropertyChangedEvent"
+  on-choice-result-changed="handleChoiceResultPropertyChangedEvent"
+  on-is-get-installed-related-apps-supported-changed="handleIsGetInstalledRelatedAppsSupportedPropertyChangedEvent"
+  on-related-apps-changed="handleRelatedAppsPropertyChangedEvent">
+</pwa-install>
+```
+
+```js
+const pwaInstall = this.$.a2hs;
+```
+
+<details>
+  <summary>Use case</summary>
+
+  Property values can be used to show/hide and/or change the state of other HTML elements e.g. the UI for promoting PWA installation:
+
+  ```html
+  <pwa-install
+    id="a2hs"
+    is-install-supported="{{isInstallSupportedPropertyValue}}"
+    is-install-available="{{isInstallAvailablePropertyValue}}">
+  </pwa-install>
+
+  <button
+    on-click="handleInstallButtonClick"
+    hidden$="[[!isInstallSupportedPropertyValue]]"
+    disabled$="[[!isInstallAvailablePropertyValue]]">
+      Install
+  </button>
+  ```
+
+  ```js
+  handleInstallButtonClick() {
+    this.$.a2hs.prompt();
+  }
+  ```
+</details>
+
+# Customize
+
+`PWAInstall` class can be imported without registering `<pwa-install>` custom HTML element. It can be used to register the web component with a different custom HTML element name:
+
+```js
+import { PWAInstall } from 'pwa-install/pwa-install-class.js';
+
+customElements.define('your-custom-element-name', PWAInstall);
+```
+
+or customize the web component:
+
+```js
+import { PWAInstall } from 'pwa-install/pwa-install-class.js';
+
+class YourCustomElement extends PWAInstall {
+  // Add or override methods, properties, attributes, events, etc.
+}
+
+customElements.define('your-custom-element-name', YourCustomElement);
+```
+
+```html
+<your-custom-element-name id="a2hs"></your-custom-element-name>
+```
+
+# Further reading
+
+[Patterns for promoting PWA installation](https://web.dev/articles/promote-install)
+
+[Native app install prompt](https://developer.chrome.com/blog/app-install-banners-native)
+
+[Is your app installed? `getInstalledRelatedApps()` will tell you!](https://web.dev/articles/get-installed-related-apps)
+
+[Detect if your native app is installed from your web site](https://medium.com/dev-channel/detect-if-your-native-app-is-installed-from-your-web-site-2e690b7cb6fb)
+
+[What does it take to be installable?](https://web.dev/articles/install-criteria)
+
+[Add a web app manifest](https://web.dev/articles/add-manifest)
