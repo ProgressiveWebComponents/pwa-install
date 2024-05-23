@@ -13,16 +13,6 @@ export class PWAInstall extends HTMLElement {
   set isInstallSupported(value) {
     this._isInstallSupported = value;
     /**
-     * @event is-install-supported-changed
-     */
-    this.dispatchEvent(
-      new CustomEvent('is-install-supported-changed', {
-        detail: {
-          value,
-        },
-      })
-    );
-    /**
      * @attribute is-install-supported
      * @type {?boolean}
      * @readonly
@@ -32,6 +22,16 @@ export class PWAInstall extends HTMLElement {
     } else {
       this.removeAttribute('is-install-supported');
     }
+    /**
+     * @event is-install-supported-changed
+     */
+    this.dispatchEvent(
+      new CustomEvent('is-install-supported-changed', {
+        detail: {
+          value,
+        },
+      })
+    );
   }
 
   get isInstallAvailable() {
@@ -40,16 +40,6 @@ export class PWAInstall extends HTMLElement {
 
   set isInstallAvailable(value) {
     this._isInstallAvailable = value;
-    /**
-     * @event is-install-available-changed
-     */
-    this.dispatchEvent(
-      new CustomEvent('is-install-available-changed', {
-        detail: {
-          value,
-        },
-      })
-    );
     /**
      * @attribute is-install-available
      * @type {?boolean}
@@ -60,6 +50,16 @@ export class PWAInstall extends HTMLElement {
     } else {
       this.removeAttribute('is-install-available');
     }
+    /**
+     * @event is-install-available-changed
+     */
+    this.dispatchEvent(
+      new CustomEvent('is-install-available-changed', {
+        detail: {
+          value,
+        },
+      })
+    );
   }
 
   get platforms() {
@@ -105,16 +105,6 @@ export class PWAInstall extends HTMLElement {
   set isGetInstalledRelatedAppsSupported(value) {
     this._isGetInstalledRelatedAppsSupported = value;
     /**
-     * @event is-get-installed-related-apps-supported-changed
-     */
-    this.dispatchEvent(
-      new CustomEvent('is-get-installed-related-apps-supported-changed', {
-        detail: {
-          value,
-        },
-      })
-    );
-    /**
      * @attribute is-get-installed-related-apps-supported
      * @type {?boolean}
      * @readonly
@@ -124,6 +114,16 @@ export class PWAInstall extends HTMLElement {
     } else {
       this.removeAttribute('is-get-installed-related-apps-supported');
     }
+    /**
+     * @event is-get-installed-related-apps-supported-changed
+     */
+    this.dispatchEvent(
+      new CustomEvent('is-get-installed-related-apps-supported-changed', {
+        detail: {
+          value,
+        },
+      })
+    );
   }
 
   get relatedApps() {
@@ -145,9 +145,10 @@ export class PWAInstall extends HTMLElement {
   }
 
   _onbeforeinstallprompt(event) {
-    window.deferredInstallEvent = event;
     event.preventDefault();
+    window.deferredInstallEvent = event;
     this.platforms = event.platforms;
+    this.isInstallAvailable = true;
     /**
      * @event pwa-install-available
      */
@@ -160,11 +161,11 @@ export class PWAInstall extends HTMLElement {
         composed: true,
       })
     );
-    this.isInstallAvailable = true;
   }
 
   _onappinstalled(event) {
     window.deferredInstallEvent = null;
+    this.isInstallAvailable = false;
     /**
      * @event pwa-install-installed
      */
@@ -177,7 +178,6 @@ export class PWAInstall extends HTMLElement {
         composed: true,
       })
     );
-    this.isInstallAvailable = false;
   }
 
   /**
@@ -189,6 +189,7 @@ export class PWAInstall extends HTMLElement {
     if (this.isInstallSupported) {
       let choiceResult;
       try {
+        this.isInstallAvailable = false;
         choiceResult = await window.deferredInstallEvent?.prompt();
         this.choiceResult = choiceResult;
         /**
@@ -223,7 +224,6 @@ export class PWAInstall extends HTMLElement {
         throw error;
       } finally {
         window.deferredInstallEvent = null;
-        this.isInstallAvailable = false;
       }
     }
   }

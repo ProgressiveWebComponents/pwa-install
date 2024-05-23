@@ -1,7 +1,7 @@
 [![Published on NPM](https://img.shields.io/npm/v/@progressivewebcomponents/pwa-install.svg)](https://npmjs.com/package/@progressivewebcomponents/pwa-install)
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://webcomponents.org/element/@progressivewebcomponents/pwa-install)
 
-A tiny zero-dependency non-visual native browser web component (custom HTML element and class) that helps implement [custom patterns for promoting progressive web apps (PWA) installation](https://web.dev/articles/promote-install).
+A tiny vanilla (zero-dependency) non-visual native browser web component (plug-n-play custom HTML element and extensible class) that helps implement [custom patterns for promoting progressive web apps (PWA) installation](https://web.dev/articles/promote-install).
 
 It's compatible with [Google Polymer](https://polymer-library.polymer-project.org) library data binding.
 
@@ -79,7 +79,8 @@ import './node_modules/@progressivewebcomponents/pwa-install/pwa-install.js';
 ```html
 <script
   type="module"
-  src="./node_modules/@progressivewebcomponents/pwa-install/pwa-install.js">
+  src="./node_modules/@progressivewebcomponents/pwa-install/pwa-install.js"
+>
 </script>
 ```
 
@@ -213,7 +214,8 @@ import 'https://unpkg.com/@progressivewebcomponents/pwa-install';
 ```html
 <script
   type="module"
-  src="https://unpkg.com/@progressivewebcomponents/pwa-install">
+  src="https://unpkg.com/@progressivewebcomponents/pwa-install"
+>
 </script>
 ```
 
@@ -258,7 +260,8 @@ import 'https://esm.sh/@progressivewebcomponents/pwa-install';
 ```html
 <script
   type="module"
-  src="https://esm.sh/@progressivewebcomponents/pwa-install">
+  src="https://esm.sh/@progressivewebcomponents/pwa-install"
+>
 </script>
 ```
 
@@ -303,7 +306,8 @@ import 'https://cdn.skypack.dev/@progressivewebcomponents/pwa-install';
 ```html
 <script
   type="module"
-  src="https://cdn.skypack.dev/@progressivewebcomponents/pwa-install">
+  src="https://cdn.skypack.dev/@progressivewebcomponents/pwa-install"
+>
 </script>
 ```
 
@@ -525,8 +529,9 @@ const handleRelatedAppsPropertyChangedEvent = (event) => {
 
   <button
     id="install"
-    onclick="document.getElementById('a2hs').prompt()">
-      Install
+    onclick="document.getElementById('a2hs').prompt()"
+  >
+    Install
   </button>
   ```
 
@@ -557,7 +562,8 @@ const handleRelatedAppsPropertyChangedEvent = (event) => {
   @platforms-changed="${this.handlePlatformsPropertyChangedEvent}"
   @choice-result-changed="${this.handleChoiceResultPropertyChangedEvent}"
   @is-get-installed-related-apps-supported-changed="${this.handleIsGetInstalledRelatedAppsSupportedPropertyChangedEvent}"
-  @related-apps-changed="${this.handleRelatedAppsPropertyChangedEvent}">
+  @related-apps-changed="${this.handleRelatedAppsPropertyChangedEvent}"
+>
 </pwa-install>
 ```
 
@@ -588,7 +594,8 @@ const pwaInstall = this.shadowRoot.getElementById('a2hs');
   on-platforms-changed="handlePlatformsPropertyChangedEvent"
   on-choice-result-changed="handleChoiceResultPropertyChangedEvent"
   on-is-get-installed-related-apps-supported-changed="handleIsGetInstalledRelatedAppsSupportedPropertyChangedEvent"
-  on-related-apps-changed="handleRelatedAppsPropertyChangedEvent">
+  on-related-apps-changed="handleRelatedAppsPropertyChangedEvent"
+>
 </pwa-install>
 ```
 
@@ -605,19 +612,21 @@ const pwaInstall = this.$.a2hs;
   <pwa-install
     id="a2hs"
     is-install-supported="{{isInstallSupportedPropertyValue}}"
-    is-install-available="{{isInstallAvailablePropertyValue}}">
+    is-install-available="{{isInstallAvailablePropertyValue}}"
+  >
   </pwa-install>
 
   <button
-    on-click="handleInstallButtonClick"
+    on-click="handleInstallButtonClickEvent"
     hidden$="[[!isInstallSupportedPropertyValue]]"
-    disabled$="[[!isInstallAvailablePropertyValue]]">
-      Install
+    disabled$="[[!isInstallAvailablePropertyValue]]"
+  >
+    Install
   </button>
   ```
 
   ```js
-  handleInstallButtonClick() {
+  handleInstallButtonClickEvent() {
     this.$.a2hs.prompt();
   }
   ```
