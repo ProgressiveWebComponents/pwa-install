@@ -5,6 +5,43 @@ A tiny vanilla (zero-dependency) non-visual native browser web component (plug-n
 
 It's compatible with [Google Polymer](https://polymer-library.polymer-project.org) library data binding.
 
+# Table of contents
+
+- [API](#api)
+  * [Methods](#methods)
+  * [Properties](#properties)
+  * [Attributes](#attributes)
+  * [Events](#events)
+- [Install](#install)
+- [Import](#import)
+  * [Local](#local)
+    + [JS](#js)
+    + [HTML](#html)
+    + [Import maps](#import-maps)
+      - [JS](#js-1)
+      - [HTML](#html-1)
+    + [Dev Servers / Builders](#dev-servers--builders)
+      - [JS](#js-2)
+      - [HTML](#html-2)
+  * [CDN](#cdn)
+    + [UNPKG](#unpkg)
+      - [JS](#js-3)
+      - [HTML](#html-3)
+    + [ESM CDN](#esm-cdn)
+      - [JS](#js-4)
+      - [HTML](#html-4)
+    + [Skypack](#skypack)
+      - [JS](#js-5)
+      - [HTML](#html-5)
+- [Use](#use)
+  * [HTML](#html-6)
+  * [JS](#js-6)
+  * [CSS](#css)
+  * [Lit](#lit)
+  * [Polymer](#polymer)
+- [Customize](#customize)
+- [Further reading](#further-reading)
+
 # API
 
 ## Methods
