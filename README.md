@@ -36,9 +36,13 @@ It's compatible with [Google Polymer](https://polymer-library.polymer-project.or
 - [Use](#use)
   * [HTML](#html-6)
   * [JS](#js-6)
+    + [Use case](#use-case)
+    + [Use case](#use-case-1)
   * [CSS](#css)
+    + [Use case](#use-case-2)
   * [Lit](#lit)
   * [Polymer](#polymer)
+    + [Use case](#use-case-3)
 - [Customize](#customize)
 - [Further reading](#further-reading)
 
@@ -436,43 +440,41 @@ const handlePWAInstallErrorEvent = (event) => {
 }
 ```
 
-<details>
-  <summary>Use case</summary>
+### Use case
 
-  Events can be used to collect telemetry on (promoting) PWA installation and send it to e.g. Google Analytics:
+Events can be used to collect telemetry on (promoting) PWA installation and send it to e.g. Google Analytics:
 
-  ```js
-  const handlePWAInstallAvailableEvent = (event) => {
-    window.gtag?.('event', 'pwa-install', {
-      'state': 'available',
-      'platforms': event.detail.value,
-    });
-  }
+```js
+const handlePWAInstallAvailableEvent = (event) => {
+  window.gtag?.('event', 'pwa-install', {
+    'state': 'available',
+    'platforms': event.detail.value,
+  });
+}
 
-  const handlePWAInstallInstallingEvent = (event) => {
-    window.gtag?.('event', 'pwa-install', {
-      'state': 'installing',
-      'outcome': event.detail.value?.outcome,
-      'platform': event.detail.value?.platform,
-    });
-  }
+const handlePWAInstallInstallingEvent = (event) => {
+  window.gtag?.('event', 'pwa-install', {
+    'state': 'installing',
+    'outcome': event.detail.value?.outcome,
+    'platform': event.detail.value?.platform,
+  });
+}
 
-  const handlePWAInstallInstalledEvent = (event) => {
-    window.gtag?.('event', 'pwa-install', {
-      'state': 'installed',
-      'platform': event.detail.value?.platform,
-    });
-  }
+const handlePWAInstallInstalledEvent = (event) => {
+  window.gtag?.('event', 'pwa-install', {
+    'state': 'installed',
+    'platform': event.detail.value?.platform,
+  });
+}
 
-  const handlePWAInstallErrorEvent = (event) => {
-    window.gtag?.('event', 'pwa-install', {
-      'state': 'error',
-      'error': event.detail.message.error,
-      'platform': event.detail.value?.platform,
-    });
-  }
-  ```
-</details>
+const handlePWAInstallErrorEvent = (event) => {
+  window.gtag?.('event', 'pwa-install', {
+    'state': 'error',
+    'error': event.detail.message.error,
+    'platform': event.detail.value?.platform,
+  });
+}
+```
 
 ```js
 pwaInstall.addEventListener('is-install-supported-changed', handleIsInstallSupportedPropertyChangedEvent);
@@ -514,37 +516,35 @@ const handleRelatedAppsPropertyChangedEvent = (event) => {
 }
 ```
 
-<details>
-  <summary>Use case</summary>
+### Use case
 
-  Events can be used to update the property values:
+Events can be used to update the property values:
 
-  ```js
-  const handleIsInstallSupportedPropertyChangedEvent = (event) => {
-    isInstallSupportedPropertyValue = event.detail.value;
-  }
+```js
+const handleIsInstallSupportedPropertyChangedEvent = (event) => {
+  isInstallSupportedPropertyValue = event.detail.value;
+}
 
-  const handleIsInstallAvailablePropertyChangedEvent = (event) => {
-    isInstallAvailablePropertyValue = event.detail.value;
-  }
+const handleIsInstallAvailablePropertyChangedEvent = (event) => {
+  isInstallAvailablePropertyValue = event.detail.value;
+}
 
-  const handlePlatformsPropertyChangedEvent = (event) => {
-    platformsPropertyValue = event.detail.value;
-  }
+const handlePlatformsPropertyChangedEvent = (event) => {
+  platformsPropertyValue = event.detail.value;
+}
 
-  const handleChoiceResultPropertyChangedEvent = (event) => {
-    choiceResultPropertyValue = event.detail.value;
-  }
+const handleChoiceResultPropertyChangedEvent = (event) => {
+  choiceResultPropertyValue = event.detail.value;
+}
 
-  const handleIsGetInstalledRelatedAppsSupportedPropertyChangedEvent = (event) => {
-    isGetInstalledRelatedAppsSupportedPropertyValue = event.detail.value;
-  }
+const handleIsGetInstalledRelatedAppsSupportedPropertyChangedEvent = (event) => {
+  isGetInstalledRelatedAppsSupportedPropertyValue = event.detail.value;
+}
 
-  const handleRelatedAppsPropertyChangedEvent = (event) => {
-    relatedAppsPropertyValue = event.detail.value;
-  }
-  ```
-</details>
+const handleRelatedAppsPropertyChangedEvent = (event) => {
+  relatedAppsPropertyValue = event.detail.value;
+}
+```
 
 ## CSS
 
@@ -556,32 +556,30 @@ const handleRelatedAppsPropertyChangedEvent = (event) => {
 #a2hs[is-get-installed-related-apps-supported]
 ```
 
-<details>
-  <summary>Use case</summary>
+### Use case
 
-  CSS attribute selectors can be used to show/hide and/or style other HTML elements e.g. the UI for promoting PWA installation:
+CSS attribute selectors can be used to show/hide and/or style other HTML elements e.g. the UI for promoting PWA installation:
 
-  ```html
-  <pwa-install id="a2hs"></pwa-install>
+```html
+<pwa-install id="a2hs"></pwa-install>
 
-  <button
-    id="install"
-    onclick="document.getElementById('a2hs').prompt()"
-  >
-    Install
-  </button>
-  ```
+<button
+  id="install"
+  onclick="document.getElementById('a2hs').prompt()"
+>
+  Install
+</button>
+```
 
-  ```css
-  #install {
-    visibility: hidden;
-  }
+```css
+#install {
+  visibility: hidden;
+}
 
-  :has(#a2hs[is-install-available]) #install {
-    visibility: visible;
-  }
-  ```
-</details>
+:has(#a2hs[is-install-available]) #install {
+  visibility: visible;
+}
+```
 
 ## Lit
 
@@ -640,34 +638,32 @@ const pwaInstall = this.shadowRoot.getElementById('a2hs');
 const pwaInstall = this.$.a2hs;
 ```
 
-<details>
-  <summary>Use case</summary>
+### Use case
 
-  Property values can be used to show/hide and/or change the state of other HTML elements e.g. the UI for promoting PWA installation:
+Property values can be used to show/hide and/or change the state of other HTML elements e.g. the UI for promoting PWA installation:
 
-  ```html
-  <pwa-install
-    id="a2hs"
-    is-install-supported="{{isInstallSupportedPropertyValue}}"
-    is-install-available="{{isInstallAvailablePropertyValue}}"
-  >
-  </pwa-install>
+```html
+<pwa-install
+  id="a2hs"
+  is-install-supported="{{isInstallSupportedPropertyValue}}"
+  is-install-available="{{isInstallAvailablePropertyValue}}"
+>
+</pwa-install>
 
-  <button
-    on-click="handleInstallButtonClickEvent"
-    hidden$="[[!isInstallSupportedPropertyValue]]"
-    disabled$="[[!isInstallAvailablePropertyValue]]"
-  >
-    Install
-  </button>
-  ```
+<button
+  on-click="handleInstallButtonClickEvent"
+  hidden$="[[!isInstallSupportedPropertyValue]]"
+  disabled$="[[!isInstallAvailablePropertyValue]]"
+>
+  Install
+</button>
+```
 
-  ```js
-  handleInstallButtonClickEvent() {
-    this.$.a2hs.prompt();
-  }
-  ```
-</details>
+```js
+handleInstallButtonClickEvent() {
+  this.$.a2hs.prompt();
+}
+```
 
 # Customize
 
