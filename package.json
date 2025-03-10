@@ -1,8 +1,11 @@
 {
   "name": "@progressivewebcomponents/pwa-install",
   "description": "A tiny vanilla (zero-dependency) non-visual native browser web component (plug-n-play custom HTML element and extensible class) that helps implement custom patterns for promoting progressive web apps (PWA) installation",
-  "author": "Alexey Rodionov <fluorescent.hallucinogen@gmail.com>",
-  "version": "0.2.1",
+  "author": {
+    "name": "Alexey Rodionov",
+    "email": "fluorescent.hallucinogen@gmail.com"
+  },
+  "version": "0.2.2",
   "main": "pwa-install.js",
   "type": "module",
   "module": "pwa-install.js",
